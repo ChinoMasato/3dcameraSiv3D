@@ -92,7 +92,7 @@ void Main()
 		// メインループの先頭付近 (描画処理の前)
 		const double deltaTime = Scene::DeltaTime(); // 1フレームの経過時間を取得
 
-               // 以前はワールド座標系に沿って移動していたため、ピッチ角を変えても上下方向へは動けなかった
+               // 以前はワールド座標系に沿って移動していたため、視線方向と移動方向が一致しなかった
                // 以下は旧実装
                /*
                if (KeyW.pressed()) { cameraPosition.z += cameraMoveSpeed * deltaTime; } // 前進 (ワールドZ+ 方向へ)
@@ -101,9 +101,8 @@ void Main()
                if (KeyD.pressed()) { cameraPosition.x += cameraMoveSpeed * deltaTime; } // 右移動 (ワールドX+ 方向へ)
                if (KeySpace.pressed()) { cameraPosition.y += cameraMoveSpeed * deltaTime; } // 上昇 (ワールドY+ 方向へ)
                if (KeyLShift.pressed() || KeyLControl.pressed()) { cameraPosition.y -= cameraMoveSpeed * deltaTime; } // 下降 (ワールドY- 方向へ)
-               */
+               // カメラの向きを反映させるため、ヨー角とピッチ角から前方ベクトルを計算して移動する
 
-               // ピッチ方向にも移動できるよう、ピッチとヨーから前方ベクトルを計算して移動する
                {
                        const float cy = cos(yawAngle);
                        const float sy = sin(yawAngle);
